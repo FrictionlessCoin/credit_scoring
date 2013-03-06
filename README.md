@@ -212,6 +212,33 @@ The credit is given by chance if the class dependency is too low. We can identif
 
 If analyze these results, we'll observe that there are just about 90 lucky people. There credit history shows that they could all chances not to get any confirmation.
 
+Final calculations are conducted within the following miner:
+```ruby
+require "ajaila/miners"
+require "credit_classifier.helper"
+
+training_results = TrainingResults.all(:order => :id.asc, :real => 1.0)
+
+sample = training_results.map do |el|
+  el.estim
+end
+
+normalized_sample = Ajaila.normalize(sample)
+
+sub_result = {}
+training_results.each_index do |ind|
+  sub_result[normalized_sample[ind]] = training_results[ind].id
+end 
+
+final_output = []
+sub_result.keys.sort.first(90).each do |key|
+  final_output << sub_result[key] + 1
+end
+
+puts "FINAL RESULTS:"
+puts "#{final_output}"
+```
+
 ### Final result
 If we index rows inside the input table and use this numbers as IDs of people. Then we can say that bad credit was given to people with an id from this array:
 ```ruby
