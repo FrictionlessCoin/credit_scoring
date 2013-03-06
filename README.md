@@ -205,10 +205,10 @@ After we've conducted classification and used the same training set to predict v
 
 ### Let's see what we have
 If we normalize the logistic output and sort this results, then we can observe the following picture:
-# picture here
+![pic](https://raw.github.com/mac-r/credit_scoring/master/credit_class.png)
 
 The credit is given by chance if the class dependency is too low. We can identify such sort of users, if we build a new plot with relative growth values:
-# new picture here
+![pic](https://raw.github.com/mac-r/credit_scoring/master/growth.png)
 
 If analyze these results, we'll observe that there are just about 90 lucky people. There credit history shows that they could all chances not to get any confirmation.
 
