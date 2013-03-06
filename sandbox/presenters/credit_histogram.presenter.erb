@@ -1,0 +1,36 @@
+<%=
+
+sample = TrainingResults.all(:order => :id.asc, :real => 1.0).map do |el|
+  el.estim
+end
+
+normalized_sample = Ajaila.normalize(sample).sort #.histogram(:middle)
+
+Ajaila.linear_plot(normalized_sample, { :plot_name => "Credit Classifier", 
+	                         :graph_name => "normalized array of estimated credit probability",
+	                         :color => "black" })
+
+%>
+<%=
+
+prev = 0
+normalized_sample.shift(10)
+growth_dynamics = normalized_sample.map do |current|
+  growth = Ajaila.to_growth(prev, current)
+  prev = current
+  growth
+end
+# sample = TrainingResults.all(:order => :id.asc, :real => 1.0).map do |el|
+#   current = el.estim
+#   growth = Ajaila.to_growth(prev, current)
+#   prev = current
+#   growth
+# end
+
+# normalized_sample = Ajaila.normalize(sample).sort #.histogram(:middle)
+
+Ajaila.linear_plot(growth_dynamics, { :plot_name => "Growth Dynamics", 
+	                         :graph_name => "growth dynamics of the normalized array",
+	                         :color => "red" })
+
+%>
